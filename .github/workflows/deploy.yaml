@@ -13,8 +13,8 @@ jobs:
       - run: docker build -t emmeongoingammuaroi/react-test -f Dockerfile.dev .
       - run: docker run -e CI=true emmeongoingammuaroi/react-test npm test
 
-      # - name: Generate deployment package
-      #   run: zip -r deploy.zip . -x '*.git*'
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v18
@@ -25,5 +25,5 @@ jobs:
           environment_name: Frontend-docker-env
           existing_bucket_name: elasticbeanstalk-ap-southeast-1-042445847226
           region: ap-southeast-1
-          # version_label: ${{ github.sha }}
-          # deployment_package: deploy.zip
+          version_label: frontend-v1.0.1
+          deployment_package: deploy.zip
